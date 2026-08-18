@@ -186,27 +186,27 @@ public:
             return {{}, -1};
         }
 
-        std::vector<int> dist(nSectores, INF); // vector de distancias
-        std::vector<int> prev(nSectores, -1); // sectores previos
-        std::vector<bool> visitado(nSectores, false); // vector con el estado de los sectores (visitado o no visitado)
-        dist[inicio] = 0; // iniciamos etiquetando el nodo fuente del grafo con el ID de la direccion de inicio y dandole distancia de 0
+        std::vector<int> dist(nSectores, INF);
+        std::vector<int> prev(nSectores, -1);
+        std::vector<bool> visitado(nSectores, false);
+        dist[inicio] = 0;
 
-        for (int i = 0; i < nSectores; i++) {
-            int u= -1;
+        for (int contador = 0; contador < nSectores; contador++) {
+            int u = -1;
             int distanciaMin = INF;
 
-            for (int j=0;j<nSectores;j++) {
+            for (int j = 0; j < nSectores; j++) {
                 if (!visitado[j] && dist[j] < distanciaMin) {
                     distanciaMin = dist[j];
-                    u=j;
+                    u = j;
                 }
             }
 
-            // el nodo que queda es inalcanzables
+            // el nodo que queda es inalcanzable
             if (u == -1) break;
             visitado[u] = true;
 
-            for (int j=0;j<nSectores;j++) {
+            for (int j = 0; j < nSectores; j++) {
                 if (!visitado[j] && matriz[u][j] != INF && dist[u] + matriz[u][j] < dist[j]) {
                     dist[j] = dist[u] + matriz[u][j];
                     prev[j] = u;
@@ -214,7 +214,6 @@ public:
             }
         }
 
-        // si se ha llegado al final -> no existe más ruta
         if (dist[fin] == INF) {
             return {{}, -1};
         }
@@ -224,7 +223,6 @@ public:
         while (actual != -1) {
             camino.push_back(ids[actual]);
             actual = prev[actual];
-
         }
         std::reverse(camino.begin(), camino.end());
         return {camino, dist[fin]};
@@ -1400,28 +1398,42 @@ class SistemaDelivery {
     void cargarDatosEjemplo() {
 
         // Sectores
-        sectores.push_back(Sector("S1", "Barrio Obrero"));
-        sectores.push_back(Sector("S2", "Pirineos"));
-        sectores.push_back(Sector("S3", "Centro"));
-        sectores.push_back(Sector("S4", "La Concordia"));
-        sectores.push_back(Sector("S5", "Pueblo Nuevo"));
+        sectores.push_back(Sector("S1",  "Barrio Obrero"));
+        sectores.push_back(Sector("S2",  "Pirineos"));
+        sectores.push_back(Sector("S3",  "Centro"));
+        sectores.push_back(Sector("S4",  "La Concordia"));
+        sectores.push_back(Sector("S5",  "Pueblo Nuevo"));
+        sectores.push_back(Sector("S6",  "La Ermita"));
+        sectores.push_back(Sector("S7",  "San Josecito"));
+        sectores.push_back(Sector("S8",  "La Popita"));
+        sectores.push_back(Sector("S9",  "El Rosal"));
+        sectores.push_back(Sector("S10", "Barrio Sucre"));
+        sectores.push_back(Sector("S11", "La Castra"));
+        sectores.push_back(Sector("S12", "Santa Teresa"));
+        sectores.push_back(Sector("S13", "Torbes"));
+        sectores.push_back(Sector("S14", "La Machirí"));
+        sectores.push_back(Sector("S15", "Palmira"));
 
         // Repartidores
-        repartidores.push_back(Repartidor("V1111111", "Carlos Ramirez", sectores[0], "ABC123", "Yamaha YBR", 0, true));
-        repartidores.push_back(Repartidor("V2222222", "Luis Mendoza",sectores[1], "DEF456", "Suzuki AX100", 0, true));
-        repartidores.push_back(Repartidor("V3333333", "Pedro Gomez",sectores[2], "GHI789", "Honda CG150", 0, true));
-        repartidores.push_back(Repartidor("V4444444", "Andres Rojas",sectores[3], "JKL012", "Bera BR150", 0, true));
-        repartidores.push_back(Repartidor("V5555555", "Tom Holland",sectores[4], "MNO345", "Yamaha Crypton", 0, true));
-        repartidores.push_back(Repartidor("V6666666", "Jose Duran",sectores[0],"PQR678", "Empire Keeway", 0, true));
-        repartidores.push_back(Repartidor("V7777777", "Ricardo Paez",sectores[1], "STU901", "Suzuki GN125", 0, true));
-        repartidores.push_back(Repartidor("V8888888", "Daniel Sanchez",sectores[2], "VWX234", "Honda XR150", 0, true));
+        repartidores.push_back(Repartidor("V1111111", "Carlos Ramirez", sectores[0],  "ABC123", "Yamaha YBR",    0, true));
+        repartidores.push_back(Repartidor("V2222222", "Luis Mendoza",   sectores[1],  "DEF456", "Suzuki AX100",  0, true));
+        repartidores.push_back(Repartidor("V3333333", "Pedro Gomez",    sectores[2],  "GHI789", "Honda CG150",   0, true));
+        repartidores.push_back(Repartidor("V4444444", "Andres Rojas",   sectores[3],  "JKL012", "Bera BR150",    0, true));
+        repartidores.push_back(Repartidor("V5555555", "Tom Holland",    sectores[4],  "MNO345", "Yamaha Crypton",0, true));
+        repartidores.push_back(Repartidor("V6666666", "Jose Duran",     sectores[5],  "PQR678", "Empire Keeway", 0, true));
+        repartidores.push_back(Repartidor("V7777777", "Ricardo Paez",   sectores[6],  "STU901", "Suzuki GN125",  0, true));
+        repartidores.push_back(Repartidor("V8888888", "Daniel Sanchez", sectores[7],  "VWX234", "Honda XR150",   0, true));
+        repartidores.push_back(Repartidor("V1313131", "Miguel Torres",  sectores[10], "YZA567", "Suzuki GN125",  0, true));
+        repartidores.push_back(Repartidor("V1414141", "Fernando Ruiz",  sectores[13], "BCD890", "Yamaha YBR",    0, true));
+        repartidores.push_back(Repartidor("V1515151", "Alejandro Vera", sectores[14], "EFG123", "Bera BR150",    0, true));
 
         // Clientes
-        clientes.push_back(Cliente("V9999999", "Maria Martinez","04121234567", 0));
-        clientes.push_back(Cliente("V1010101", "Taylor Swift","04147654321", 0));
+        clientes.push_back(Cliente("V9999999", "Maria Martinez",  "04121234567", 0));
+        clientes.push_back(Cliente("V1010101", "Taylor Swift",    "04147654321", 0));
         clientes.push_back(Cliente("V1212121", "Camila Carlosama","04248889999", 0));
 
-        cout << "Datos de ejemplo precargados: " << sectores.size() << " sectores, " << repartidores.size() << " repartidores, " << clientes.size() << " clientes." << endl;
+        cout << "Datos de ejemplo precargados: " << sectores.size() << " sectores, "
+             << repartidores.size() << " repartidores, " << clientes.size() << " clientes." << endl;
     }
 };
 
